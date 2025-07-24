@@ -12,6 +12,9 @@ ENV/
 .venv/
 .env/
 
+# Env file
+.env
+
 # Django stuff:
 *.log
 *.pot

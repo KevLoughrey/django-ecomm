@@ -16,6 +16,14 @@ BBFC_CHOICES = [
     ('18', '18'),
 ]
 
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class BoxSet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -32,9 +40,9 @@ class Media(models.Model):
     cover = CloudinaryField('image', blank=True, null=True)
     media_type = models.CharField(max_length=3, choices=MEDIA_TYPE_CHOICES)
     year = models.PositiveIntegerField(blank=True, null=True)
-    publisher = models.CharField(max_length=255, blank=True)
     boxset = models.ForeignKey(BoxSet, on_delete=models.SET_NULL, blank=True, null=True, related_name='media_items')
     bbfc_rating = models.CharField(max_length=2, choices=BBFC_CHOICES, blank=True, null=True)
+    publisher = models.ForeignKey(Publisher, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f"{self.title} ({self.media_type}) - {self.year if self.year else 'Unknown Year'}"

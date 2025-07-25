@@ -1,12 +1,62 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-  <h1>All Items</h1>
-  <ul>
-    {% for item in items %}
-      <li>{{ item.title }} - {{ item.media_type }} - {{ item.year }}</li>
-    {% empty %}
-      <li>No items found.</li>
-    {% endfor %}
-  </ul>
+<h1>All Items</h1>
+<ul>
+    <div class="row text-center">
+        {% for item in items %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-flex mb-4">
+            <div class="card h-100 w-100 d-flex flex-column">
+
+                {% if item.cover %}
+                <img class="card-img-top media-image" src="{{ item.cover.url }}" alt="The cover artwork for {{ item.}}">
+                {% else %}
+                <img class="card-img-top media-image" src="{% static 'images/default.jpg' %}"
+                    alt="A placeholder image for a cover, as none has been uploaded for this item.">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <span class="media-title">{{ item.title }}</span>
+                    <div class="row align-items-end media-info-row">
+                        <div class="col-4">
+                            {% if item.media_type %}
+                                {% if item.media_type == 'DVD' %}
+                                    <img class="media-logo" src="{% static 'images/dvd.png' %}" alt="DVD Logo">
+                                {% elif item.media_type == 'BLU' %}
+                                    <img class="media-logo" src="{% static 'images/bluray.png' %}" alt="Blu-ray Logo">
+                                {% elif item.media_type == '4K' %}
+                                    <img class="media-logo" src="{% static 'images/uhd.png' %}" alt="UHD Logo">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-4">
+                            {% if item.year %}
+                                <span class="media-year">{{ item.year }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-4">
+                            {% if item.bbfc_rating %}
+                                {% if item.bbfc_rating == 'U' %}
+                                    <img class="media-rating" src="{% static 'images/u.png' %}" alt="BBFC U Rating Symbol">
+                                {% elif item.bbfc_rating == 'PG' %}
+                                    <img class="media-rating" src="{% static 'images/pg.png' %}" alt="BBFC PG Rating Symbol">
+                                {% elif item.bbfc_rating == '12' %}
+                                    <img class="media-rating" src="{% static 'images/12.png' %}" alt="BBFC 12 Rating Symbol">
+                                {% elif item.bbfc_rating == '15' %}
+                                    <img class="media-rating" src="{% static 'images/15.png' %}" alt="BBFC 15 Rating Symbol">
+                                {% elif item.bbfc_rating == '18' %}
+                                    <img class="media-rating" src="{% static 'images/18.png' %}" alt="BBFC 18 Rating Symbol">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <li>No items found.</li>
+        {% endfor %}
+
+    </div>
+</ul>
 {% endblock %}

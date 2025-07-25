@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>All Items</h1>
+  <ul>
+    {% for item in items %}
+      <li>{{ item.title }} - {{ item.media_type }} - {{ item.year }}</li>
+    {% empty %}
+      <li>No items found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

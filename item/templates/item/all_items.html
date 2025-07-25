@@ -10,7 +10,7 @@
             <div class="card h-100 w-100 d-flex flex-column">
 
                 {% if item.cover %}
-                <img class="card-img-top media-image" src="{{ item.cover.url }}" alt="The cover artwork for {{ item.}}">
+                <img class="card-img-top media-image" src="{{ item.cover.url }}" alt="The cover artwork for {{ item.title }}">
                 {% else %}
                 <img class="card-img-top media-image" src="{% static 'images/default.jpg' %}"
                     alt="A placeholder image for a cover, as none has been uploaded for this item.">
